@@ -1,3 +1,6 @@
-br\com\alura\AdopetConsoleApplication.class
-br\com\alura\service\AbrigoService.class
+br\com\alura\domain\Abrigo.class
+br\com\alura\domain\Pet.class
 br\com\alura\service\PetService.class
+br\com\alura\AdopetConsoleApplication.class
+br\com\alura\client\ClientHttpConfiguration.class
+br\com\alura\service\AbrigoService.class
