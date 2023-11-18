@@ -6,11 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class AbrigoService {
 
     private ClientHttpConfiguration client;
+
     public AbrigoService(ClientHttpConfiguration client) {
         this.client = client;
     }
@@ -20,11 +23,19 @@ public class AbrigoService {
         HttpResponse<String> response = client.dispararRequisicaoGet(uri);
         String responseBody = response.body();
         Abrigo[] abrigos = new ObjectMapper().readValue(responseBody, Abrigo[].class);
+        if (Arrays.stream(abrigos).toList().isEmpty()) {
+            System.out.println("Não há abrigos cadastrados");
+        } else {
+            mostrarAbrigos(Arrays.stream(abrigos).toList());
+        }
+    }
+
+    private void mostrarAbrigos(List<Abrigo> abrigos) {
         System.out.println("Abrigos cadastrados:");
         for (Abrigo abrigo : abrigos) {
             long id = abrigo.getId();
             String nome = abrigo.getNome();
-            System.out.println(id +" - " +nome);
+            System.out.println(id + " - " + nome);
         }
     }
 
