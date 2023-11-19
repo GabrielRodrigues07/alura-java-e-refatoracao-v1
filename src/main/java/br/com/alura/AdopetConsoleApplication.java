@@ -1,17 +1,17 @@
 package br.com.alura;
 
-import br.com.alura.client.ClientHttpConfiguration;
-import br.com.alura.service.AbrigoService;
-import br.com.alura.service.PetService;
+import br.com.alura.command.*;
+import br.com.alura.command.impl.CadastrarAbrigoCommand;
+import br.com.alura.command.impl.ImportarPetCommand;
+import br.com.alura.command.impl.ListarAbrigoCommand;
+import br.com.alura.command.impl.ListarPetCommand;
 
 import java.util.Scanner;
 
 public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
-        ClientHttpConfiguration clientHttpConfiguration = new ClientHttpConfiguration();
-        AbrigoService abrigoService = new AbrigoService(clientHttpConfiguration);
-        PetService petService = new PetService(clientHttpConfiguration);
+        CommandExecutor executor = new CommandExecutor();
 
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
         try {
@@ -28,13 +28,13 @@ public class AdopetConsoleApplication {
                 opcaoEscolhida = Integer.parseInt(textoDigitado);
 
                 if (opcaoEscolhida == 1) {
-                    abrigoService.listarAbrigo();
+                    executor.executeCommand(new ListarAbrigoCommand());
                 } else if (opcaoEscolhida == 2) {
-                    abrigoService.cadastrarAbrigo();
+                    executor.executeCommand(new CadastrarAbrigoCommand());
                 } else if (opcaoEscolhida == 3) {
-                    petService.listarPetsDoAbrigo();
+                    executor.executeCommand(new ListarPetCommand());
                 } else if (opcaoEscolhida == 4) {
-                    petService.importarPetsDoAbrigo();
+                    executor.executeCommand(new ImportarPetCommand());
                 } else if (opcaoEscolhida == 5) {
                     break;
                 } else {
